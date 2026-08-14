@@ -1,0 +1,240 @@
+.goals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.goals-header h1 {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.goals-subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.add-goal-btn {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.28);
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.add-goal-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.goals-empty {
+  background: white;
+  border-radius: 16px;
+  padding: 50px 20px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.empty-icon { font-size: 2.4rem; display: block; margin-bottom: 12px; }
+.goals-empty h3 { margin: 0 0 6px; color: #111827; }
+.goals-empty p { margin: 0 0 18px; color: #6b7280; font-size: 0.88rem; max-width: 380px; margin-left: auto; margin-right: auto; }
+
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.goal-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+.goal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.goal-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.goal-card-top h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.goal-delete-btn {
+  background: #f3f4f6;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 0.75rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.goal-delete-btn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.goal-ring-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.goal-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.goal-ring-inner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #7c3aed;
+}
+
+.goal-saved {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.goal-target {
+  margin: 2px 0 0;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+.progress-fill.good { background: #8b5cf6; }
+.progress-fill.warning { background: #f59e0b; }
+
+.goal-meta {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.goal-insight {
+  background: #f9fafb;
+  border-radius: 9px;
+  padding: 9px 11px;
+  margin-bottom: 12px;
+}
+
+.goal-insight p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.goal-status-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.tag-ok { background: #dcfce7; color: #16a34a; }
+.tag-warning { background: #fef3c7; color: #d97706; }
+
+.goal-amount-display { display:flex; align-items:baseline; gap:6px; margin: 4px 0 10px; }
+.goal-amount-display strong { font-size: 1.45rem; color:#111827; }
+.goal-amount-display span { color:#94a3b8; font-size:.85rem; font-weight:650; }
+.goal-percent-row { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:.75rem; color:#64748b; margin-bottom:7px; }
+.goal-percent-row strong { font-size:.72rem; }
+.goal-progress-large { height:9px; margin-bottom:15px; }
+.goal-meta-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+.goal-meta-grid span { display:flex; flex-direction:column; gap:3px; }
+.goal-meta-grid small { color:#94a3b8; font-size:.67rem; }
+.goal-financial-details { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+.goal-financial-details div { background:#f8fafc; border-radius:9px; padding:9px; display:flex; flex-direction:column; gap:4px; }
+.goal-financial-details span { color:#94a3b8; font-size:.65rem; }
+.goal-financial-details strong { color:#374151; font-size:.8rem; }
+.goal-status-message { border-radius:9px; padding:9px 10px; font-size:.72rem; line-height:1.35; font-weight:650; }
+.goal-status-message.tag-ok { background:#ecfdf5; color:#15803d; }
+.goal-status-message.tag-warning { background:#fffbeb; color:#b45309; }
+.goal-status-message.tag-danger { background:#fef2f2; color:#b91c1c; }
+.goal-status-message.tag-completed { background:#f5f3ff; color:#7c3aed; }
+.tag-danger { background:#fee2e2; color:#dc2626; }
+.tag-completed { background:#ede9fe; color:#7c3aed; }
+.goal-card.goal-status-completed { border-top:3px solid #8b5cf6; }
+.goal-card.goal-status-behind { border-top:3px solid #ef4444; }
+.goal-card.goal-status-slightly_behind { border-top:3px solid #f59e0b; }
+.goal-card.goal-status-on_track { border-top:3px solid #22c55e; }
+@media (max-width:600px) {
+  .goal-financial-details, .goal-meta-grid { grid-template-columns:1fr; }
+  .goal-percent-row { align-items:flex-start; flex-direction:column; }
+}
+
+
+.goal-card-actions { margin-top: 14px; }
+.goal-add-money-btn {
+  width: 100%;
+  border: 1px solid #ddd6fe;
+  background: #f5f3ff;
+  color: #7c3aed;
+  border-radius: 9px;
+  padding: 9px 12px;
+  font-size: .82rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.goal-add-money-btn:hover:not(:disabled) { transform: translateY(-1px); background: #ede9fe; box-shadow: 0 5px 14px rgba(124,58,237,.12); }
+.goal-add-money-btn:disabled { opacity: .5; cursor: not-allowed; }
+.goal-status-completed { border-top: 3px solid #22c55e; }

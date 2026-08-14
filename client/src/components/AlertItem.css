@@ -1,0 +1,127 @@
+.alert-item {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border-left: 3px solid #cbd5e1;
+  animation: alert-fade-in 0.25s ease;
+  transition: background-color 0.15s ease, transform 0.12s ease;
+}
+
+@keyframes alert-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.alert-item.unread {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.alert-item.severity-critical { border-left-color: #ef4444; }
+.alert-item.severity-warning { border-left-color: #f59e0b; }
+.alert-item.severity-positive { border-left-color: #22c55e; }
+.alert-item.severity-info { border-left-color: #3b82f6; }
+
+.alert-item-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.alert-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.alert-item-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.alert-item-top strong {
+  font-size: 0.83rem;
+  color: #111827;
+  font-weight: 700;
+}
+
+.alert-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3b82f6;
+  flex-shrink: 0;
+}
+
+.alert-item-message {
+  margin: 0 0 2px;
+  font-size: 0.82rem;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.alert-item-detail {
+  margin: 0 0 6px;
+  font-size: 0.74rem;
+  color: #9ca3af;
+}
+
+.alert-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.alert-action-btn {
+  background: transparent;
+  border: none;
+  color: #2563eb;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 3px 0;
+  transition: opacity 0.15s ease;
+}
+
+.alert-action-btn:hover { opacity: 0.7; }
+
+.alert-mark-read-btn {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.alert-mark-read-btn:hover { color: #374151; }
+
+.alert-dismiss-btn {
+  background: transparent;
+  border: none;
+  color: #d1d5db;
+  font-size: 0.7rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 2px 5px;
+  border-radius: 5px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.alert-dismiss-btn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.alert-item.compact .alert-item-message {
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
