@@ -62,9 +62,6 @@ export default function QuickAddModal({ onClose, onSaved }) {
     const filtered = categories.filter((category) => category.type === type);
     const unique = new Map();
 
-    // Normalize category names so duplicate/default variants are shown once.
-    // Examples: Bills / bills / Bills  -> Bills
-    //          Other / Others / Other Expense(s) -> Other Expense
     const getKey = (name) => {
       const normalized = String(name || '')
         .trim()
@@ -87,7 +84,6 @@ export default function QuickAddModal({ onClose, onSaved }) {
         return;
       }
 
-      // If both global and user categories exist, keep the user's category.
       if (existing.user_id == null && category.user_id != null) {
         unique.set(key, category);
       }

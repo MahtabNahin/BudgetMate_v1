@@ -1,7 +1,5 @@
 const pool = require('../config/db');
 
-// Detect candidate recurring transactions: same category + similar amount (+-5%)
-// + similar day-of-month (+-3 days), appearing in 2+ separate months
 exports.detectRecurring = async (req, res) => {
   try {
     const [transactions] = await pool.query(
@@ -21,7 +19,6 @@ exports.detectRecurring = async (req, res) => {
     const candidates = [];
     for (const categoryId in byCategory) {
       const txns = byCategory[categoryId];
-      // group by rough amount buckets
       const clusters = [];
       txns.forEach((t) => {
         const amount = Number(t.amount);

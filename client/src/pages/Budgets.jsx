@@ -15,7 +15,6 @@ export default function Budgets() {
 
   useEffect(() => {
     loadBudgets();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [month]);
 
   const handleDelete = async (id) => {

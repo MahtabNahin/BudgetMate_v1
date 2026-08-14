@@ -7,7 +7,6 @@ function parseGoalDate(value) {
   const text = String(value).trim();
   if (!text) return null;
 
-  // MySQL DATE: YYYY-MM-DD
   const match = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
   if (match) {
     const [, year, month, day] = match;
@@ -23,7 +22,6 @@ exports.getGoals = async (req, res) => {
   try {
     const [goals] = await pool.query('SELECT * FROM goals WHERE user_id = ? ORDER BY target_date', [req.user.id]);
 
-    // Compute required monthly saving and compare against average monthly surplus
     const [[surplusRow]] = await pool.query(
       `SELECT
          COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0) AS income,
@@ -37,8 +35,6 @@ exports.getGoals = async (req, res) => {
 
     const enriched = goals.map((g) => {
       const now = new Date();
-      // MySQL DATE columns may arrive as JavaScript Date objects or strings.
-      // Do not append a time string to an already-parsed Date object.
       const target = parseGoalDate(g.target_date);
       const created = parseGoalDate(g.created_at) || now;
       const targetDate = target || now;
@@ -56,8 +52,6 @@ exports.getGoals = async (req, res) => {
         ? Math.min(100, Math.round((saved / targetAmount) * 100))
         : 0;
 
-      // Expected progress assumes the user should be roughly proportional
-      // to the time elapsed between goal creation and target date.
       const totalMonths =
         (targetDate.getFullYear() - created.getFullYear()) * 12 +
         (targetDate.getMonth() - created.getMonth());

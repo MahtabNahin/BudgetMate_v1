@@ -5,7 +5,6 @@ require('dotenv').config();
 
 exports.register = async (req, res) => {
   try {
-    // Role is intentionally NOT accepted from the client.
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
@@ -25,11 +24,8 @@ exports.register = async (req, res) => {
       });
     }
 
-    // Hash the password before storing it.
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Every account created through registration is a normal user.
-    // Admin accounts must be created/managed separately.
     const finalRole = 'user';
 
     const [result] = await pool.query(
@@ -91,7 +87,6 @@ exports.login = async (req, res) => {
 
     const user = rows[0];
 
-    // Compare entered password with the stored bcrypt hash.
     const match = await bcrypt.compare(
       password,
       user.password
@@ -103,9 +98,6 @@ exports.login = async (req, res) => {
       });
     }
 
-    // The role comes from the database.
-    // Therefore your existing admin account will still
-    // receive role = 'admin'.
     const token = jwt.sign(
       {
         id: user.id,

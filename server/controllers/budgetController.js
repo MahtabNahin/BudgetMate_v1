@@ -11,7 +11,6 @@ exports.getBudgets = async (req, res) => {
       [req.user.id, month]
     );
 
-    // Attach actual spend per budget for progress bars
     const results = await Promise.all(
       budgets.map(async (b) => {
         const [[spendRow]] = await pool.query(
@@ -45,7 +44,6 @@ exports.setBudget = async (req, res) => {
       return res.status(400).json({ message: 'category_id, month_year, and limit_amount are required' });
     }
 
-    // Upsert: one budget per category per month
     await pool.query(
       `INSERT INTO budgets (user_id, category_id, month_year, limit_amount)
        VALUES (?, ?, ?, ?)

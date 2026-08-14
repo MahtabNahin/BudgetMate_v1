@@ -25,8 +25,6 @@ exports.getBadges = async (req, res) => {
   }
 };
 
-// Recalculate streaks for a completed month: call this for a past month_year (e.g. '2026-07')
-// to check if the user stayed under budget in each category and update streak counts.
 exports.evaluateMonth = async (req, res) => {
   try {
     const { month_year } = req.body;

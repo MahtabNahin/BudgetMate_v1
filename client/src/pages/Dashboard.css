@@ -1,6 +1,3 @@
-/* =====================================================
-   BUDGETMATE DASHBOARD
-===================================================== */
 
 .dashboard-page {
   width: 100%;
@@ -11,9 +8,6 @@
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
 
 .dashboard-header {
   display: flex;
@@ -51,9 +45,6 @@
 }
 
 
-/* =====================================================
-   HEADER ACTIONS (month selector + primary CTA)
-===================================================== */
 
 .header-actions {
   display: flex;
@@ -73,9 +64,6 @@
 }
 
 
-/* =====================================================
-   SECONDARY IN-CARD ACTIONS (Add Budget / Add Goal)
-===================================================== */
 
 .card-link-btn {
   background: transparent;
@@ -96,9 +84,6 @@
 }
 
 
-/* =====================================================
-   QUICK ACTIONS (legacy — kept for compatibility)
-===================================================== */
 
 .quick-actions {
   display: flex;
@@ -139,9 +124,6 @@
 }
 
 
-/* =====================================================
-   SUMMARY CARDS
-===================================================== */
 
 .summary-grid {
   display: grid;
@@ -224,9 +206,6 @@
 }
 
 
-/* =====================================================
-   GENERAL GRID
-===================================================== */
 
 .dashboard-grid {
   display: grid;
@@ -238,9 +217,6 @@
 }
 
 
-/* =====================================================
-   CARD
-===================================================== */
 
 .dashboard-card {
   background: white;
@@ -274,9 +250,6 @@
 }
 
 
-/* =====================================================
-   CHARTS
-===================================================== */
 
 .chart-card {
   min-height: 400px;
@@ -292,9 +265,6 @@
 }
 
 
-/* =====================================================
-   EMPTY STATE
-===================================================== */
 
 .empty-state {
   height: 100%;
@@ -326,9 +296,6 @@
 }
 
 
-/* =====================================================
-   BUDGET
-===================================================== */
 
 .budget-list {
   display: flex;
@@ -433,9 +400,6 @@
 }
 
 
-/* =====================================================
-   SAVINGS
-===================================================== */
 
 .savings-box {
   display: flex;
@@ -511,9 +475,6 @@
 }
 
 
-/* =====================================================
-   GOAL PREVIEW (inside Savings Snapshot)
-===================================================== */
 
 .goal-preview {
   margin-top: 14px;
@@ -558,9 +519,6 @@
 }
 
 
-/* =====================================================
-   SMART INSIGHTS
-===================================================== */
 
 .section-title {
   margin: 30px 0 15px;
@@ -664,9 +622,6 @@
 }
 
 
-/* =====================================================
-   RECURRING TRANSACTIONS
-===================================================== */
 
 .recurring-card {
   margin-bottom: 18px;
@@ -725,9 +680,6 @@
 }
 
 
-/* =====================================================
-   BADGES
-===================================================== */
 
 .badges-card {
   margin-bottom: 18px;
@@ -767,9 +719,6 @@
 }
 
 
-/* =====================================================
-   RESPONSIVE DESIGN
-===================================================== */
 
 @media (max-width: 1000px) {
 
@@ -849,9 +798,6 @@
 
 }
 
-/* =====================================================
-   DASHBOARD POLISH / NEW FEATURES
-===================================================== */
 
 .personalized-header {
   margin-bottom: 18px;
@@ -1228,9 +1174,6 @@
   line-height: 1.5;
 }
 
-/* =====================================================
-   MONEY HEALTH SCORE
-===================================================== */
 
 .health-grid {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1370,10 +1313,6 @@
 .dashboard-goals-list { display: grid; gap: 12px; }
 .dashboard-goal-action-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 9px; color: #64748b; font-size: 11px; }
 
-/* Self-contained button styling — do not rely on Goals.css being loaded on this
-   page. It happens to work today because App.jsx statically imports every page
-   up front (so Vite bundles all page CSS together), but that would silently
-   break if route-based code-splitting (React.lazy) is introduced later. */
 .goal-add-money-btn {
   border: 1px solid #ddd6fe;
   background: #f5f3ff;

@@ -4,9 +4,6 @@ const getMonth = () => new Date().toISOString().slice(0, 7);
 
 const pad = (value) => String(value).padStart(2, '0');
 
-// MySQL DATE values can arrive as strings or JavaScript Date objects depending
-// on the mysql2 configuration. Keep streak calculations in YYYY-MM-DD strings
-// so invalid Date parsing can never break the dashboard.
 const toDateKey = (value) => {
   if (!value) return null;
   if (typeof value === 'string') {
@@ -37,11 +34,8 @@ const healthStatus = (score) => {
 };
 
 const calculateHealthScore = ({ savingsRate, budgets, goals, monthlyHistory, trackingDays }) => {
-  // Savings: reward a sustainable 20–30%+ savings rate.
   const savingsComponent = clamp(savingsRate <= 0 ? 0 : (savingsRate / 25) * 100);
 
-  // Budget discipline: average current-month budget usage. No budgets is neutral,
-  // not a penalty, because the user has not provided a limit to measure against.
   let budgetComponent = 65;
   if (budgets.length) {
     const usages = budgets.map((budget) => Number(budget.percent_used));
@@ -53,7 +47,6 @@ const calculateHealthScore = ({ savingsRate, budgets, goals, monthlyHistory, tra
     else budgetComponent = 30;
   }
 
-  // Goals: compare actual progress with expected time-based progress.
   let goalComponent = 65;
   if (goals.length) {
     const active = goals.filter((goal) => goal.status !== 'abandoned');
@@ -69,8 +62,6 @@ const calculateHealthScore = ({ savingsRate, budgets, goals, monthlyHistory, tra
     }
   }
 
-  // Spending consistency: compare the selected month's expense with the average
-  // of earlier months. Small deviations are considered healthy/normal.
   let spendingComponent = 70;
   const current = Number(monthlyHistory.find((row) => row.current)?.expense || 0);
   const historical = monthlyHistory
@@ -88,8 +79,6 @@ const calculateHealthScore = ({ savingsRate, budgets, goals, monthlyHistory, tra
     }
   }
 
-  // Tracking consistency: about 21 active days in a 30-day window represents
-  // a strong habit. This is separate from the current streak.
   const trackingComponent = clamp((Number(trackingDays) / 21) * 100);
 
   const weighted =
@@ -205,7 +194,6 @@ exports.getDashboard = async (req, res) => {
     else if (income > 0 && expense / income > 0.8) monthStatus = 'spending_fast';
     else if (balance > 0 && expense / Math.max(income, 1) < 0.6) monthStatus = 'saving_more';
 
-    // Consecutive transaction-day streak, safely using date keys.
     const [dateRows] = await pool.query(
       `SELECT DISTINCT txn_date
        FROM transactions
@@ -288,7 +276,6 @@ exports.getDashboard = async (req, res) => {
       };
     });
 
-    // Goal data is reused for both the dashboard goal card and Money Health Score.
     const [goalRows] = await pool.query(
       `SELECT id, name, target_amount, current_saved, target_date, status, created_at
        FROM goals
@@ -344,7 +331,6 @@ exports.getDashboard = async (req, res) => {
       };
     });
 
-    // Six-month expense history is used by Money Health Score to measure spending consistency.
     const [historyRows] = await pool.query(
       `SELECT DATE_FORMAT(txn_date,'%Y-%m') AS month,
               COALESCE(SUM(CASE WHEN type='income' THEN amount ELSE 0 END),0) AS income,

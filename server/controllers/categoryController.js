@@ -1,6 +1,5 @@
 const pool = require('../config/db');
 
-// Get all categories visible to the user (their own + global defaults)
 exports.getCategories = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -8,8 +7,6 @@ exports.getCategories = async (req, res) => {
       [req.user.id]
     );
 
-    // Return one visible category for duplicate names/variants.
-    // Prefer a user's category over a global default.
     const unique = new Map();
     const getKey = (name) => {
       const normalized = String(name || '')

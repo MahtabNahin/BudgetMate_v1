@@ -5,9 +5,6 @@ import { useToast } from '../context/ToastContext';
 import { notifyDataChanged } from '../context/AlertsContext';
 
 
-// =====================================================
-// CATEGORY GROUPS
-// =====================================================
 
 const incomeCategories = [
   {
@@ -124,10 +121,6 @@ const expenseCategories = [
 
 export default function Transactions() {
 
-  // ===================================================
-  // STATE
-  // ===================================================
-
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -147,10 +140,6 @@ export default function Transactions() {
   const [showForm, setShowForm] = useState(true);
   const showToast = useToast();
 
-
-  // ===================================================
-  // LOAD DATA
-  // ===================================================
 
   const loadTransactions = () => {
     api
@@ -176,10 +165,6 @@ export default function Transactions() {
   }, []);
 
 
-  // ===================================================
-  // FORM HANDLING
-  // ===================================================
-
   const handleChange = (e) => {
 
     const { name, value } = e.target;
@@ -192,7 +177,6 @@ export default function Transactions() {
   };
 
 
-  // When user changes Income / Expense
   const handleTypeChange = (type) => {
 
     setForm((previous) => ({
@@ -203,10 +187,6 @@ export default function Transactions() {
 
   };
 
-
-  // ===================================================
-  // CATEGORY MATCHING
-  // ===================================================
 
   const getCategoryGroup = (categoryName, type) => {
 
@@ -231,10 +211,6 @@ export default function Transactions() {
       ? incomeCategories
       : expenseCategories;
 
-
-  // ===================================================
-  // CATEGORY SELECTION
-  // ===================================================
 
   const handleCategorySelect = (group) => {
 
@@ -266,9 +242,6 @@ export default function Transactions() {
   };
 
 
-  // ===================================================
-  // SUBMIT
-  // ===================================================
 
   const handleSubmit = async (e) => {
 
@@ -322,10 +295,6 @@ export default function Transactions() {
   };
 
 
-  // ===================================================
-  // RESET FORM
-  // ===================================================
-
   const resetForm = () => {
 
     setForm({
@@ -342,10 +311,6 @@ export default function Transactions() {
 
   };
 
-
-  // ===================================================
-  // EDIT
-  // ===================================================
 
   const handleEdit = (transaction) => {
 
@@ -368,10 +333,6 @@ export default function Transactions() {
 
   };
 
-
-  // ===================================================
-  // DELETE
-  // ===================================================
 
   const handleDelete = async (id) => {
 
@@ -406,10 +367,6 @@ export default function Transactions() {
   };
 
 
-  // ===================================================
-  // FILTER TRANSACTIONS
-  // ===================================================
-
   const filteredTransactions = useMemo(() => {
 
     return transactions.filter((transaction) => {
@@ -441,9 +398,6 @@ export default function Transactions() {
   ]);
 
 
-  // ===================================================
-  // TOTALS
-  // ===================================================
 
   const totalIncome = transactions
     .filter((transaction) => transaction.type === 'income')
@@ -463,9 +417,6 @@ export default function Transactions() {
     );
 
 
-  // ===================================================
-  // SELECTED CATEGORY
-  // ===================================================
 
   const selectedCategory = categories.find(
     (category) =>
@@ -483,18 +434,12 @@ export default function Transactions() {
       : null;
 
 
-  // ===================================================
-  // RENDER
-  // ===================================================
 
   return (
 
     <div className="transactions-page">
 
 
-      {/* =============================================
-          HEADER
-      ============================================= */}
 
       <div className="transactions-header">
 
@@ -521,9 +466,6 @@ export default function Transactions() {
       </div>
 
 
-      {/* =============================================
-          SUMMARY
-      ============================================= */}
 
       <div className="transaction-summary">
 
@@ -594,9 +536,6 @@ export default function Transactions() {
       </div>
 
 
-      {/* =============================================
-          TRANSACTION FORM
-      ============================================= */}
 
       {showForm && (
 
@@ -621,7 +560,6 @@ export default function Transactions() {
           </div>
 
 
-          {/* INCOME / EXPENSE TOGGLE */}
 
           <div className="type-toggle">
 
@@ -659,7 +597,6 @@ export default function Transactions() {
           </div>
 
 
-          {/* CATEGORY SECTION */}
 
           <div className="category-section">
 
@@ -751,7 +688,6 @@ export default function Transactions() {
             </div>
 
 
-            {/* SELECTED CATEGORY */}
 
             {selectedCategory && (
 
@@ -776,7 +712,6 @@ export default function Transactions() {
           </div>
 
 
-          {/* FORM DETAILS */}
 
           <form
             className="transaction-details-form"
@@ -894,9 +829,6 @@ export default function Transactions() {
       )}
 
 
-      {/* =============================================
-          TRANSACTION HISTORY
-      ============================================= */}
 
       <div className="history-card">
 
@@ -962,7 +894,6 @@ export default function Transactions() {
         </div>
 
 
-        {/* DESKTOP TABLE */}
 
         <div className="transaction-table-wrapper">
 

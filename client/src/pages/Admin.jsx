@@ -63,9 +63,6 @@ export default function Admin() {
     if (!categoryForm.name.trim()) return;
     setSavingCategory(true);
     try {
-      // The existing category API creates a category for the authenticated admin.
-      // Keep this feature compatible with the current app rather than adding a new
-      // category system just for the admin dashboard.
       await api.post('/categories', {
         name: categoryForm.name.trim(),
         type: categoryForm.type,

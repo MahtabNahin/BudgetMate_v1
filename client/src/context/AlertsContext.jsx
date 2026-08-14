@@ -36,8 +36,6 @@ export function AlertsProvider({ children }) {
     }
     refresh();
 
-    // Any part of the app that mutates transactions/budgets/goals dispatches this
-    // event, so alerts recompute from the same underlying data automatically.
     const handleDataUpdate = () => refresh();
     window.addEventListener('budgetmate:data-updated', handleDataUpdate);
     window.addEventListener('budgetmate:goals-updated', handleDataUpdate);
@@ -96,8 +94,6 @@ export function useAlerts() {
   return useContext(AlertsContext);
 }
 
-// Call this after any action that changes transactions, budgets, or goals so every
-// part of the app (bell icon, dashboard card, notification panel) refreshes in sync.
 export function notifyDataChanged() {
   window.dispatchEvent(new CustomEvent('budgetmate:data-updated'));
 }

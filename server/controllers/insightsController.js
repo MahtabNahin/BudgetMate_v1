@@ -1,6 +1,5 @@
 const pool = require('../config/db');
 
-// Predict month-end spend per category based on current daily burn rate
 exports.getPredictions = async (req, res) => {
   try {
     const month = req.query.month || new Date().toISOString().slice(0, 7);
@@ -36,7 +35,6 @@ exports.getPredictions = async (req, res) => {
   }
 };
 
-// Flag unusually large transactions per category using mean + standard deviation
 exports.getAnomalies = async (req, res) => {
   try {
     const [transactions] = await pool.query(
@@ -82,7 +80,6 @@ exports.getAnomalies = async (req, res) => {
   }
 };
 
-// Data for the what-if simulator: average monthly spend per category over last N months
 exports.getSimulatorBaseline = async (req, res) => {
   try {
     const currentMonth = new Date().toISOString().slice(0, 7);

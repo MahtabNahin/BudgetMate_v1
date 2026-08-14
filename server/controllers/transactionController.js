@@ -82,7 +82,6 @@ exports.deleteTransaction = async (req, res) => {
   }
 };
 
-// Summary for charts: income vs expense by month, and by category
 exports.getSummary = async (req, res) => {
   try {
     const { year } = req.query;

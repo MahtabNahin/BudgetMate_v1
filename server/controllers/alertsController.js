@@ -3,9 +3,6 @@ const pool = require('../config/db');
 const getMonth = () => new Date().toISOString().slice(0, 7);
 const pad = (v) => String(v).padStart(2, '0');
 
-// Priority within a severity tier, per the spec:
-// 1. Budget exceeded  2. Major spending warning  3. Important goal milestone
-// 4. Budget approaching limit  5. Positive achievements
 const TYPE_RANK = {
   budget_exceeded: 0,
   spending_increase: 1,
@@ -17,8 +14,6 @@ const TYPE_RANK = {
   all_budgets_ok: 7,
 };
 
-// Builds the full, current set of alerts purely from live data. Nothing here is
-// persisted — read/dismissed state is merged in by the caller from alert_states.
 async function computeAlerts(userId, month) {
   const [year, monthNumber] = month.split('-').map(Number);
   const daysInMonth = new Date(year, monthNumber, 0).getDate();
@@ -32,9 +27,6 @@ async function computeAlerts(userId, month) {
 
   const alerts = [];
 
-  // ---------------------------------------------------------------
-  // BUDGET ALERTS: exceeded / warning (80%+) / success (comfortably under)
-  // ---------------------------------------------------------------
   const [budgetRows] = await pool.query(
     `SELECT b.id, b.category_id, b.limit_amount, c.name AS category_name,
             COALESCE(SUM(CASE WHEN t.type='expense' AND DATE_FORMAT(t.txn_date,'%Y-%m') = ? THEN t.amount ELSE 0 END),0) AS spent
@@ -81,8 +73,6 @@ async function computeAlerts(userId, month) {
         action: { label: 'View Budget', to: '/budgets' },
       });
     } else if (percent <= 50 && monthProgress >= 0.5) {
-      // Comfortably under, and at least half the month has passed — a real signal,
-      // not just "it's the 2nd of the month so of course nothing's spent yet".
       alerts.push({
         key: `budget_success:${b.id}:${month}`,
         type: 'budget_success',
@@ -109,9 +99,6 @@ async function computeAlerts(userId, month) {
     });
   }
 
-  // ---------------------------------------------------------------
-  // SPENDING INCREASE: category spend up significantly vs last month
-  // ---------------------------------------------------------------
   const [categoryRows] = await pool.query(
     `SELECT c.id AS category_id, c.name AS category_name, SUM(t.amount) AS total
      FROM transactions t JOIN categories c ON t.category_id = c.id
@@ -131,8 +118,6 @@ async function computeAlerts(userId, month) {
   for (const c of categoryRows) {
     const prev = prevByCategory[c.category_id];
     const current = Number(c.total);
-    // Require a meaningful previous baseline so a single ৳50 transaction last month
-    // doesn't produce a misleading "300% increase" alert.
     if (!prev || prev < 200) continue;
     const increasePercent = Math.round(((current - prev) / prev) * 100);
     if (increasePercent >= 20) {
@@ -149,9 +134,6 @@ async function computeAlerts(userId, month) {
     }
   }
 
-  // ---------------------------------------------------------------
-  // GOAL ALERTS: milestones + "almost there"
-  // ---------------------------------------------------------------
   const [goalRows] = await pool.query(
     `SELECT id, name, target_amount, current_saved, status FROM goals WHERE user_id = ?`,
     [userId]
@@ -196,9 +178,6 @@ async function computeAlerts(userId, month) {
     }
   }
 
-  // ---------------------------------------------------------------
-  // SAVINGS ACHIEVEMENT: meaningful savings rate this month
-  // ---------------------------------------------------------------
   const [[totals]] = await pool.query(
     `SELECT
       COALESCE(SUM(CASE WHEN type='income' THEN amount ELSE 0 END),0) AS income,

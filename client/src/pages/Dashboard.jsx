@@ -77,8 +77,6 @@ export default function Dashboard() {
   const loadDashboard = async () => {
     setDashboardError('');
 
-    // The dashboard summary is the primary request. It must not be blocked by
-    // optional widgets such as badges, recurring payments, or predictions.
     try {
       const dash = await api.get('/dashboard', { params: { month: currentMonth } });
       setDashboard(dash.data);
@@ -89,8 +87,6 @@ export default function Dashboard() {
       return;
     }
 
-    // Load secondary dashboard widgets independently. A failure in one of
-    // these endpoints should never leave the entire dashboard stuck loading.
     const results = await Promise.allSettled([
       api.get('/transactions/summary', { params: { month: currentMonth } }),
       api.get('/insights/predictions', { params: { month: currentMonth } }),
@@ -133,9 +129,6 @@ export default function Dashboard() {
       return Number.isFinite(time) ? time : 0;
     };
 
-    // Prefer goals that were most recently updated. If the current backend
-    // does not expose updated_at yet, goals with money already added are
-    // prioritised, then the nearest target date is used as a fallback.
     return [...goals]
       .sort((a, b) => {
         const updatedA = validTime(a.updated_at || a.updatedAt || a.last_updated || a.lastUpdated);
